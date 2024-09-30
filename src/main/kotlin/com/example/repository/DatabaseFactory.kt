@@ -24,10 +24,12 @@ object DatabaseFactory {
     fun hikari(): HikariDataSource {
         val config = HikariConfig()
         config.driverClassName = System.getenv("JDBC_DRIVER")
-        config.jdbcUrl = System.getenv("DATABASE_URL")
         config.maximumPoolSize = 3
         config.isAutoCommit = false
         config.transactionIsolation = "TRANSACTION_REPEATABLE_READ"
+
+        config.jdbcUrl = "jdbc:postgresql://dpg-crt7o4d6l47c73d7uh0g-a.oregon-postgres.render.com:5432/notes_2auc"
+
         config. validate()
         return HikariDataSource(config)
     }
