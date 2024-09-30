@@ -28,9 +28,11 @@ object DatabaseFactory {
         config.isAutoCommit = false
         config.transactionIsolation = "TRANSACTION_REPEATABLE_READ"
 
-        config.jdbcUrl = "jdbc:postgresql://dpg-crt7o4d6l47c73d7uh0g-a.oregon-postgres.render.com:5432/notes_2auc"
+        config.jdbcUrl = "jdbc:postgresql://dpg-crt7o4d6l47c73d7uh0g-a.oregon-postgres.render.com/notes_2auc"
+        config.username = "notes_2auc_user"
+        config.password = "jcQFNaQNftHbMpJ5MYyId0JpetWuf1os"
 
-        config. validate()
+        config.validate()
         return HikariDataSource(config)
     }
 
