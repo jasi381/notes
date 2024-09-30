@@ -58,7 +58,7 @@ fun Application.configureRouting(
 
         userRoutes(db, jwtService, hashFunction)
 
-        noteRoutes(db, jwtService, hashFunction)
+        noteRoutes(db)
 
         // For All Unhandled routes
         route("{...}") {

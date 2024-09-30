@@ -1,6 +1,5 @@
 package com.example.routes
 
-import com.example.auth.JwtService
 import com.example.data.model.Note
 import com.example.data.model.SimpleResponse
 import com.example.data.model.User
@@ -20,8 +19,6 @@ const val API_VERSION = "v1"
 
 fun Route.noteRoutes(
     db: Repo,
-    jwtService: JwtService,
-    hashFunction: (String) -> String
 ) {
     authenticate("jwt") {
         route("/$API_VERSION/notes") {
