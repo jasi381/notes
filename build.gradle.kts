@@ -46,6 +46,6 @@ dependencies {
     implementation ("org.jetbrains.exposed:exposed-jdbc:0.55.0")
     implementation ("org.postgresql:postgresql:$postgres_version")
     implementation ("com.zaxxer:HikariCP:$hikari_version")
-    implementation("io.ktor:ktor-server-locations:2.0.0")
+    implementation("io.ktor:ktor-server-locations:2.3.12")
 
 }

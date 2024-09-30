@@ -16,7 +16,7 @@ fun Route.userRoutes(
     jwtService: JwtService,
     hashFunction: (String) -> String
 ) {
-    route("/v1/users") {
+    route("/$API_VERSION/users") {
         post("/register") {
             val registerRequest = try {
                 call.receive<RegisterRequest>()

@@ -1,12 +1,9 @@
 package com.example.plugins
 
 import com.example.auth.JwtService
-import com.example.auth.hashPassword
-import com.example.data.model.LoginRequest
-import com.example.data.model.RegisterRequest
-import com.example.data.model.SimpleResponse
 import com.example.data.model.User
 import com.example.repository.Repo
+import com.example.routes.noteRoutes
 import com.example.routes.userRoutes
 import io.ktor.http.HttpStatusCode
 import io.ktor.server.application.*
@@ -15,10 +12,13 @@ import io.ktor.server.response.*
 import io.ktor.server.response.respond
 import io.ktor.server.routing.*
 
-fun Application.configureRouting() {
-    val db = Repo()
-    val jwtService = JwtService()
-    val hashFunction: (String) -> String = ::hashPassword
+fun Application.configureRouting(
+    db: Repo,
+    jwtService: JwtService,
+    hashFunction: (String) -> String
+) {
+
+
 
     routing {
         get("/") {
@@ -28,7 +28,7 @@ fun Application.configureRouting() {
         route("/notes") {
             get("/{id}") {
                 val id = call.parameters["id"]
-                call.respond(id ?: "")
+                call.respond(id ?:"")
             }
 
             get {
@@ -57,6 +57,8 @@ fun Application.configureRouting() {
         }
 
         userRoutes(db, jwtService, hashFunction)
+
+        noteRoutes(db, jwtService, hashFunction)
 
         // For All Unhandled routes
         route("{...}") {

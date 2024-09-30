@@ -1,11 +1,14 @@
 package com.example
 
 
+import com.example.auth.JwtService
+import com.example.auth.hashPassword
 import com.example.plugins.*
 import com.example.repository.DatabaseFactory
+import com.example.repository.Repo
 import io.ktor.server.application.*
 import io.ktor.server.locations.KtorExperimentalLocationsAPI
-import io.ktor.server.locations.Locations
+
 
 fun main(args: Array<String>) {
     println("Starting server")
@@ -14,12 +17,23 @@ fun main(args: Array<String>) {
 
 @OptIn(KtorExperimentalLocationsAPI::class)
 fun Application.module() {
-    println("Initializing application module")
     DatabaseFactory.init()
-    install(Locations)
+
+    val db = Repo()
+    val jwtService = JwtService()
+    val hashFunction: (String) -> String = ::hashPassword
 
     configureSerialization()
-    configureSecurity()
-    configureRouting()
-    println("Application module initialization complete")
+    configureSecurity(
+        db = db,
+        jwtService = jwtService,
+        hashFunction = hashFunction
+    )
+
+    configureRouting(
+        db = db,
+        jwtService = jwtService,
+        hashFunction = hashFunction
+
+    )
 }
